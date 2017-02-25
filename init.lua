@@ -23,4 +23,4 @@ THE SOFTWARE.
 ]]
 
 ma_kwf = require("ma_kwf")
-ma_kwf_rules = kwf.load_rules()
+ma_kwf_rules = ma_kwf.load_rules()
