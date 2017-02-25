@@ -20,11 +20,14 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
 
 1. Make sure Openresty is working fine.
 2. Clone MA-KWF to Openresty:
+
     ```bash
     cd /usr/local/openresty/nginx/conf
     git clone https://github.com/moeart/moeart-kwf ma-kwf/
     ```
+
 3. Upload your keyword list file to ```/usr/local/openresty/nginx/conf/ma-kwf/keyword.lst```, such as:
+
     ```
     萌冬瓜
     萌西瓜
@@ -33,7 +36,9 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     moeart
     acgdraw
     ```
+
 4. Setting up your API or some URL you want protect, modify file ```/usr/local/openresty/nginx/conf/ma-kwf/applyTo.lst```, such as:
+
     ```
     http://www.example.com/api/v2/post
     example.com/api/v1
@@ -41,7 +46,9 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     www.example.com
     sub.example.com
     ```
+
 5. Modify nginx configuration file, Insert code:
+
     ```
     http {
         ... ...
@@ -55,6 +62,7 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
         ... ...
     }
     ```
+
 6. Restart or reload your nginx or openresty.
 
 # Make Compatible with WAF
@@ -62,6 +70,7 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
 **SUCH AS X-WAF, PLEASE FOLLOW INSTALLATION GUIDE STEP 1 TO 4 FIRST !!**
 
 5. Modify nginx configuration file, such as:
+
     ```
     http {
         ... ...
@@ -69,6 +78,7 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
         ... ...
     }
     ```
+
 6. Copy all content in ```ma-kwf/init.lua`` to end of the file ```x-waf/init.lua```.
 7. Copy all content in ```ma-kwf/access.lua`` to end of the file ```x-waf/access.lua```.
 8. Restart or reload your nginx or openresty.
