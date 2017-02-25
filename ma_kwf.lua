@@ -91,7 +91,7 @@ function _M.keyword_check()
         elseif REQ_METHOD == "POST" then
             -- bug: its only support urlencoded now
             local content_type = ngx.req.get_headers()["content-type"]
-            if content_type ~= nil and string.match(ngx.header.content_type, "application/x-www-form-urlencoded") then
+            if content_type ~= nil and string.match(content_type, "application/x-www-form-urlencoded") then
                 ngx.req.read_body()
                 REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
             end
