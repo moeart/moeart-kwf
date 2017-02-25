@@ -1,4 +1,4 @@
-MIT License
+--[[
 
 Copyright (C) 2017 MoeArt Development Team.
 
@@ -19,3 +19,30 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+]]
+
+-- Keyword Filter Configuration File
+-- Enable = "on"
+-- Disable = "off"
+
+local _M = {
+
+    -- KWF Enable
+    kwf_enable = "on",
+    
+    -- KWF Log Enable
+    log_enable = "on",
+
+    -- Rule Location
+    rule_dir = "/usr/local/openresty/nginx/conf/ma-kwf/rules",
+    
+    -- Log Location (please mkdir first)
+    log_dir = "/tmp/kwf_log",
+    
+    -- Bad keywords replacement mask 
+    keyword_mask = "***",
+
+}
+
+return _M
