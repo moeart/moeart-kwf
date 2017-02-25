@@ -22,4 +22,4 @@ THE SOFTWARE.
 
 ]]
 
-kwf.do_filter()
+ma_kwf.do_filter()

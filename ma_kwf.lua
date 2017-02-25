@@ -27,8 +27,8 @@ local unescape = ngx.unescape_uri
 local escape = ngx.escape_uri
 
 local string = require("string")
-local config = require("config")
-local core = require("core")
+local config = require("ma_config")
+local core = require("ma_core")
 
 local _M = {
     RULES = {}
