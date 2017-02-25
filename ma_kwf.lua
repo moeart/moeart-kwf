@@ -94,9 +94,10 @@ function _M.keyword_check()
             if content_type ~= nil and string.match(content_type, "application/x-www-form-urlencoded") then
                 ngx.req.read_body()
                 REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
+                ngx.log(ngx.INFO, string.format("TTTTTTTTTTTTTTTTTTTTTTTTTT"))
             end
         end
-
+        ngx.log(ngx.INFO, string.format("#######################%s", REQ_QUERY))
         -- do check query string is ok or not
         if REQ_QUERY ~= nil then
             for _, rule in pairs(KEYWORD_LIST) do
