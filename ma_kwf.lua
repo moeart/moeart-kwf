@@ -91,14 +91,14 @@ function _M.keyword_check()
         elseif REQ_METHOD == "POST" then
             -- bug: its only support urlencoded now
             local content_type = ngx.req.get_headers()["content-type"]
-            ngx.log(ngx.INFO, string.format("AAAAAAAAAAAAAAAAA%s",content_type))
+            ngx.log(ngx.ERR, string.format("AAAAAAAAAAAAAAAAA%s",content_type))
             if content_type ~= nil and string.match(content_type, "application/x-www-form-urlencoded") then
                 ngx.req.read_body()
                 REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
-                ngx.log(ngx.INFO, string.format("TTTTTTTTTTTTTTTTTTTTTTTTTT"))
+                ngx.log(ngx.ERR, string.format("TTTTTTTTTTTTTTTTTTTTTTTTTT"))
             end
         end
-        ngx.log(ngx.INFO, string.format("#######################%s", REQ_QUERY))
+        ngx.log(ngx.ERR, string.format("#######################%s", REQ_QUERY))
         -- do check query string is ok or not
         if REQ_QUERY ~= nil then
             for _, rule in pairs(KEYWORD_LIST) do
