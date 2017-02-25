@@ -79,8 +79,8 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     }
     ```
 
-6. Copy all content in ```ma-kwf/init.lua`` to end of the file ```x-waf/init.lua```.
-7. Copy all content in ```ma-kwf/access.lua`` to end of the file ```x-waf/access.lua```.
+6. Copy all content in ```ma-kwf/init.lua``` to end of the file ```x-waf/init.lua```.
+7. Copy all content in ```ma-kwf/access.lua``` to end of the file ```x-waf/access.lua```.
 8. Restart or reload your nginx or openresty.
 
 ## Thanks
