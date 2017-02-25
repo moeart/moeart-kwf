@@ -90,6 +90,7 @@ function _M.keyword_check()
             REQ_QUERY = ngx.var.query_string
         elseif REQ_METHOD == "POST" then
             -- bug: its only support urlencoded now
+            ngx.log(ngx.ERR, string.format("###################%s", ngx.header.content_type))
             if string.match(ngx.header.content_type, "application/x-www-form-urlencoded") then
                 ngx.req.read_body()
                 REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
