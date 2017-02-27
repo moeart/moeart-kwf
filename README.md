@@ -53,8 +53,6 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     http {
         ... ...
         lua_package_path "/usr/local/openresty/nginx/conf/ma-kwf/?.lua;/usr/local/lib/lua/?.lua;";
-        lua_shared_dict limit 100m;
-        lua_shared_dict badGuys 100m;
         lua_code_cache on;
         
         init_by_lua_file /usr/local/openresty/nginx/conf/ma-kwf/init.lua;
