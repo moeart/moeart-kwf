@@ -6,8 +6,8 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
 
 # Features
 
-- Block bad keywords with GET method
-- Block bad keywords with POST method (urlencoded only)
+- Block bad keywords with GET/POST/PUT method
+- Block bad keywords with JSON method
 - Customizable bad keyword replacement mask symbol
 - Protect data integrity when filter bad keywords
 - Simple keywords library file format (one line one word) 
@@ -45,6 +45,7 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     example.com/api/v2
     www.example.com
     sub.example.com
+    ?type=post
     ```
 
 5. Modify nginx configuration file, Insert code:
@@ -52,11 +53,11 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     ```
     http {
         ... ...
-        lua_package_path "/usr/local/openresty/nginx/conf/ma-kwf/?.lua;/usr/local/lib/lua/?.lua;";
+        lua_package_path "/usr/local/openresty/nginx/conf/moeart-kwf/?.lua;/usr/local/lib/lua/?.lua;";
         lua_code_cache on;
         
-        init_by_lua_file /usr/local/openresty/nginx/conf/ma-kwf/init.lua;
-        access_by_lua_file /usr/local/openresty/nginx/conf/ma-kwf/access.lua;
+        init_by_lua_file /usr/local/openresty/nginx/conf/moeart-kwf/init.lua;
+        access_by_lua_file /usr/local/openresty/nginx/conf/moeart-kwf/access.lua;
         ... ...
     }
     ```
@@ -72,13 +73,13 @@ MA-KWF designed by MoeArt Development Team with MIT License, and it can works fi
     ```
     http {
         ... ...
-        lua_package_path "/usr/local/openresty/nginx/conf/ma-kwf/?.lua;/usr/local/openresty/nginx/conf/x-waf/?.lua;/usr/local/lib/lua/?.lua;";
+        lua_package_path "/usr/local/openresty/nginx/conf/moeart-kwf/?.lua;/usr/local/openresty/nginx/conf/x-waf/?.lua;/usr/local/lib/lua/?.lua;";
         ... ...
     }
     ```
 
-6. Copy all content in ```ma-kwf/init.lua``` to end of the file ```x-waf/init.lua```.
-7. Copy all content in ```ma-kwf/access.lua``` to end of the file ```x-waf/access.lua```.
+6. Copy all content in ```moeart-kwf/init.lua``` to end of the file ```x-waf/init.lua```.
+7. Copy all content in ```moeart-kwf/access.lua``` to end of the file ```x-waf/access.lua```.
 8. Restart or reload your nginx or openresty.
 
 ## Thanks
