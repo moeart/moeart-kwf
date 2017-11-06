@@ -88,12 +88,21 @@ function _M.keyword_check()
         -- get query string
         if REQ_METHOD == "GET" then
             REQ_QUERY = ngx.var.query_string
-        elseif REQ_METHOD == "POST" then
-            -- bug: its only support urlencoded now
+        else
             local content_type = ngx.req.get_headers()["content-type"]
-            if content_type ~= nil and string.sub(content_type,1,33) == "application/x-www-form-urlencoded" then
+            if content_type ~= nil and string.sub(content_type,1,16) == "application/json" then
+                REQ_METHOD = "JSON"
                 ngx.req.read_body()
-                REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
+                REQ_QUERY = ngx.req.get_body_data()
+            elseif REQ_METHOD == "POST" then
+                if content_type ~= nil and string.sub(content_type,1,33) == "application/x-www-form-urlencoded" then
+                    ngx.req.read_body()
+                    REQ_QUERY = ngx.encode_args(ngx.req.get_post_args())
+                elseif content_type ~= nil then
+                    REQ_METHOD = "POST_FORM"
+                    ngx.req.read_body()
+                    REQ_QUERY = ngx.req.get_body_data()
+                end
             end
         end
 
@@ -101,16 +110,28 @@ function _M.keyword_check()
         if REQ_QUERY ~= nil then
             for _, rule in pairs(KEYWORD_LIST) do
                 if rule ~= "" and string.match(unescape(REQ_QUERY), rule) then
-                    -- replace % to %% because gsub not support % but %%
-                    local rule_encode = escape(rule):gsub("%%","%%%%")
-                    local kw_mask_encode = escape(config.keyword_mask):gsub("%%","%%%%")
+                    local rule_encode = nil
+                    local kw_mask_encode = nil
+                    local args = nil
+                    
                     -- replace matched keyword
-                    local args = REQ_QUERY:gsub(rule_encode, kw_mask_encode)
-                    -- reset the query string
-                    if REQ_METHOD == "GET" then
-                        ngx.req.set_uri_args(args)
-                    else
+                    if REQ_METHOD == "JSON" or REQ_METHOD == "POST_FORM" then
+                        rule_encode = rule
+                        kw_mask_encode = config.keyword_mask
+                        args = REQ_QUERY:gsub(rule_encode, kw_mask_encode)
                         ngx.req.set_body_data(args)
+                    else
+                        -- replace % to %% because gsub not support % but %%
+                        rule_encode = escape(rule):gsub("%%","%%%%")
+                        kw_mask_encode = escape(config.keyword_mask):gsub("%%","%%%%")
+                        args = REQ_QUERY:gsub(rule_encode, kw_mask_encode)
+                        
+                        -- reset the query string
+                        if REQ_METHOD == "GET" then
+                            ngx.req.set_uri_args(args)
+                        else
+                            ngx.req.set_body_data(args)
+                        end
                     end
                     ngx.log(ngx.INFO, string.format("keyword:%s matched!", rule))
                     -- logging to file
